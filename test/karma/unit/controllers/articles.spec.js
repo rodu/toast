@@ -98,20 +98,20 @@
 
                     // fixture expected POST data
                     var postArticleData = function() {
-                        return {
-                            title: 'An Article about MEAN',
-                            content: 'MEAN rocks!'
-                        };
-                    };
+                            return {
+                                title: 'An Article about MEAN',
+                                content: 'MEAN rocks!'
+                            };
+                        },
 
-                    // fixture expected response data
-                    var responseArticleData = function() {
-                        return {
-                            _id: '525cf20451979dea2c000001',
-                            title: 'An Article about MEAN',
-                            content: 'MEAN rocks!'
+                        // fixture expected response data
+                        responseArticleData = function() {
+                            return {
+                                _id: '525cf20451979dea2c000001',
+                                title: 'An Article about MEAN',
+                                content: 'MEAN rocks!'
+                            };
                         };
-                    };
 
                     // fixture mock form input values
                     scope.title = 'An Article about MEAN';
@@ -136,15 +136,15 @@
 
                 // fixture rideshare
                 var putArticleData = function() {
-                    return {
-                        _id: '525a8422f6d0f87f0e407a33',
-                        title: 'An Article about MEAN',
-                        to: 'MEAN is great!'
-                    };
-                };
+                        return {
+                            _id: '525a8422f6d0f87f0e407a33',
+                            title: 'An Article about MEAN',
+                            to: 'MEAN is great!'
+                        };
+                    },
 
-                // mock article object from form
-                var article = new Articles(putArticleData());
+                    // mock article object from form
+                    article = new Articles(putArticleData());
 
                 // mock article in scope
                 scope.article = article;

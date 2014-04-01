@@ -28,8 +28,8 @@ var db = mongoose.connect(config.db);
 var models_path = __dirname + '/app/models';
 var walk = function(path) {
     fs.readdirSync(path).forEach(function(file) {
-        var newPath = path + '/' + file;
-        var stat = fs.statSync(newPath);
+        var newPath = path + '/' + file,
+            stat = fs.statSync(newPath);
         if (stat.isFile()) {
             if (/(.*)\.(js$|coffee$)/.test(file)) {
                 require(newPath);
@@ -53,8 +53,8 @@ require('./config/express')(app, passport, db);
 var routes_path = __dirname + '/app/routes';
 var walk = function(path) {
     fs.readdirSync(path).forEach(function(file) {
-        var newPath = path + '/' + file;
-        var stat = fs.statSync(newPath);
+        var newPath = path + '/' + file,
+            stat = fs.statSync(newPath);
         if (stat.isFile()) {
             if (/(.*)\.(js$|coffee$)/.test(file)) {
                 require(newPath)(app, passport);

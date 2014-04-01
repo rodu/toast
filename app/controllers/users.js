@@ -52,19 +52,20 @@ exports.session = function(req, res) {
  * Create user
  */
 exports.create = function(req, res, next) {
-    var user = new User(req.body);
-    var message = null;
+    var user = new User(req.body),
+        message = null;
 
     user.provider = 'local';
     user.save(function(err) {
         if (err) {
             switch (err.code) {
-                case 11000:
-                case 11001:
-                    message = 'Username already exists';
-                    break;
-                default:
-                    message = 'Please fill all the required fields';
+            case 11000:
+                /* falls through */
+            case 11001:
+                message = 'Username already exists';
+                break;
+            default:
+                message = 'Please fill all the required fields';
             }
 
             return res.render('users/signup', {
@@ -73,7 +74,9 @@ exports.create = function(req, res, next) {
             });
         }
         req.logIn(user, function(err) {
-            if (err) return next(err);
+            if (err){
+                return next(err);
+            }
             return res.redirect('/');
         });
     });
@@ -95,8 +98,12 @@ exports.user = function(req, res, next, id) {
             _id: id
         })
         .exec(function(err, user) {
-            if (err) return next(err);
-            if (!user) return next(new Error('Failed to load User ' + id));
+            if (err){
+                return next(err);
+            }
+            if (!user){
+                return next(new Error('Failed to load User ' + id));
+            }
             req.profile = user;
             next();
         });

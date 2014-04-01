@@ -1,4 +1,5 @@
 {
+    "node": true,
     "curly": true,
     "eqeqeq": true,
     "immed": true,
@@ -10,7 +11,7 @@
     "eqnull": true,
     "unused": true,
     "browser": true,
-    "quotmark": true,
+    "quotmark": false,
     "evil": false,
     "noarg": true,
     "regexdash": true,
@@ -23,6 +24,20 @@
     "trailing": false,
     "indent": 4,
     "noempty": true,
+    "predef": [ // Extra globals.
+        "define",
+        "require",
+        "exports",
+        "module",
+        "describe",
+        "before",
+        "beforeEach",
+        "after",
+        "afterEach",
+        "it",
+        "inject",
+        "expect"
+    ],
     "globals": {
       "Modernizr": true,
       "require": true,
@@ -32,6 +47,7 @@
       "describe": true,
       "expect": true,
       "QUnit": true,
-      "it": true
+      "it": true,
+      "angular": true
     }
 }
