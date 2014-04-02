@@ -71,6 +71,21 @@ module.exports = function(grunt) {
             unit: {
                 configFile: 'test/karma/karma.conf.js'
             }
+        },
+        bump: {
+            options: {
+                files: ["package.json"],
+                updateConfigs: [],
+                commit: true,
+                commitMessage: "Release v%VERSION%",
+                commitFiles: ["package.json"], // "-a" for all files
+                createTag: true,
+                tagName: "v%VERSION%",
+                tagMessage: "Version %VERSION%",
+                push: false,
+                pushTo: "upstream",
+                gitDescribeOptions: "--tags --always --abbrev=1 --dirty=-d" // options to use with '$ git describe'
+            }
         }
     });
 
@@ -82,6 +97,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-env');
+    grunt.loadNpmTasks("grunt-bump");
 
     //Making grunt default to force in order not to break the project.
     grunt.option('force', true);
