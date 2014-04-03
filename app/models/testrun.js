@@ -1,34 +1,7 @@
 'use strict';
 var mongoose = require('mongoose'),
+    assertionSchema = require('./schemas/assertion'),
     Schema = mongoose.Schema,
-
-    AssertionSchema = new Schema({
-        result: {
-            type: Boolean,
-            'default': false
-        },
-        expected: {
-            type: Object
-        },
-        actual: {
-            type: Object
-        },
-        name: {
-            type: String,
-            'default': '',
-            trim: true
-        },
-        source: {
-            type: String,
-            'default': '',
-            trim: true
-        },
-        message: {
-            type: String,
-            'default': '',
-            trim: true
-        }
-    }),
 
     TestSchema = new Schema({
         name: {
@@ -48,7 +21,7 @@ var mongoose = require('mongoose'),
             type: Number,
             'default': 0
         },
-        assertions: [AssertionSchema]
+        assertions: [assertionSchema]
     }),
 
     ModuleSchema = new Schema({
