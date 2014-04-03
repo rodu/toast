@@ -3,7 +3,7 @@
 module.exports = function(app) {
     
     // Home route
-    var collector = require('../controllers/collector');
-    app.post('/collect', collector.collect);
+    var testruns = require('../controllers/testruns');
+    app.post('/testruns/collect', testruns.collect);
 
 };
