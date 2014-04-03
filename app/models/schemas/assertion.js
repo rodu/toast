@@ -34,4 +34,4 @@ assertionSchema.path('name').validate(function(name){
     return name.length > 0;
 }, 'Assertion name cannot be blank');
 
-return assertionSchema;
+module.exports = assertionSchema;
