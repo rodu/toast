@@ -24,4 +24,10 @@ var mongoose = require('mongoose'),
         modules: [moduleSchema]
     });
 
+
+// Validation
+suiteSchema.path('name').validate(function(name){
+    return name.length > 0;
+}, 'Suite name cannot be blank');
+
 module.exports = suiteSchema;

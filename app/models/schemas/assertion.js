@@ -17,7 +17,7 @@ var mongoose = require('mongoose'),
             'default': '',
             trim: true
         },
-        source: {
+        source: { // the error stacktrace if any
             type: String,
             'default': '',
             trim: true

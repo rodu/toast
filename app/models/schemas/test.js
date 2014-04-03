@@ -23,4 +23,10 @@ var mongoose = require('mongoose'),
         assertions: [assertionSchema]
     });
 
+
+// Validation
+testSchema.path('name').validate(function(name){
+    return name.length > 0;
+}, 'Test name cannot be blank');
+
 module.exports = testSchema;
