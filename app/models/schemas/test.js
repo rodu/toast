@@ -23,10 +23,11 @@ var mongoose = require('mongoose'),
         children: [assertionSchema]
     });
 
+mongoose.model('TestSchema', testSchema);
 
 // Validation
 testSchema.path('name').validate(function(name){
-    return name.length > 0;
+    return typeof name === "string" && name.length > 0;
 }, 'Test name cannot be blank');
 
 module.exports = testSchema;

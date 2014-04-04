@@ -24,6 +24,7 @@ var mongoose = require('mongoose'),
         children: [moduleSchema]
     });
 
+mongoose.model('SuiteSchema', suiteSchema);
 
 // Validation
 suiteSchema.path('name').validate(function(name){

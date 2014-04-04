@@ -11,4 +11,6 @@ var mongoose = require('mongoose'),
         children: [testSchema]
     });
 
+mongoose.model('ModuleSchema', moduleSchema);
+
 module.exports = moduleSchema;

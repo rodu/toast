@@ -29,6 +29,8 @@ var mongoose = require('mongoose'),
         }
     });
 
+mongoose.model('AssertionSchema', assertionSchema);
+
 // Validation
 assertionSchema.path('name').validate(function(name){
     return name.length > 0;
