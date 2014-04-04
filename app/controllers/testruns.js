@@ -12,12 +12,18 @@ exports.render = function(req, res) {
 exports.collect = function(){
     //console.log(req.body);
     var testRun = new TestRun({
-        suites: {
-            name: "Test test suite",
+        children: [{
+            name: "Mock suite",
             children: [{
-                name: "Test module"
+                name: "Mock module",
+                children: [{
+                    name: "Mock test",
+                    children: [{
+                        name: "Mock assertion"
+                    }]
+                }]
             }]
-        }
+        }]
     });
     testRun.save(function(err){
         if (err){
