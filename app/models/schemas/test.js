@@ -20,7 +20,7 @@ var mongoose = require('mongoose'),
             type: Number,
             'default': 0
         },
-        assertions: [assertionSchema]
+        children: [assertionSchema]
     });
 
 

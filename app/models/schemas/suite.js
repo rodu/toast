@@ -21,7 +21,7 @@ var mongoose = require('mongoose'),
             type: Number,
             'default': 0
         },
-        modules: [moduleSchema]
+        children: [moduleSchema]
     });
 
 

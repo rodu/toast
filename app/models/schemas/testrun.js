@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
             type: Date,
             'default': Date.now
         },
-        suites: [suiteSchema]
+        children: [suiteSchema]
     });
 
 module.exports = testRunSchema;

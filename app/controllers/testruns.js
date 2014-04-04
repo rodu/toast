@@ -11,9 +11,13 @@ exports.render = function(req, res) {
 
 exports.collect = function(){
     //console.log(req.body);
-    //var testRun = new TestRun(req.body);
     var testRun = new TestRun({
-        suites: null
+        suites: {
+            name: "Test test suite",
+            children: [{
+                name: "Test module"
+            }]
+        }
     });
     testRun.save(function(err){
         if (err){

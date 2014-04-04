@@ -8,7 +8,7 @@ var mongoose = require('mongoose'),
             'default': '',
             trim: true
         },
-        tests: [testSchema]
+        children: [testSchema]
     });
 
 module.exports = moduleSchema;
