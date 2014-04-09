@@ -1,5 +1,6 @@
 'use strict';
 var mongoose = require('mongoose'),
+    schemaValidatorUtils = require('../../utils/validators/schemaValidatorUtils'),
     moduleSchema = require('./module'),
     Schema = mongoose.Schema,
     suiteSchema = new Schema({
@@ -27,8 +28,7 @@ var mongoose = require('mongoose'),
 mongoose.model('SuiteSchema', suiteSchema);
 
 // Validation
-suiteSchema.path('name').validate(function(name){
-    return name.length > 0;
-}, 'Suite name cannot be blank');
+suiteSchema.path('name').validate(schemaValidatorUtils.validateName,
+                                  'Suite name cannot be blank');
 
 module.exports = suiteSchema;
