@@ -1,6 +1,7 @@
 'use strict';
 var mongoose = require('mongoose'),
     assertionSchema = require('./assertion'),
+    schemaValidatorUtils = require('../../utils/validators/schemaValidatorUtils'),
     Schema = mongoose.Schema,
     testSchema = new Schema({
         name: {
@@ -26,8 +27,7 @@ var mongoose = require('mongoose'),
 mongoose.model('TestSchema', testSchema);
 
 // Validation
-testSchema.path('name').validate(function(name){
-    return typeof name === "string" && name.length > 0;
-}, 'Test name cannot be blank');
+testSchema.path('name').validate(schemaValidatorUtils.validateName,
+                                 'Test name cannot be blank');
 
 module.exports = testSchema;
