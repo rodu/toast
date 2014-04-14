@@ -9,9 +9,9 @@ exports.render = function(req, res) {
     });
 };
 
-exports.collect = function(){
+exports.collect = function(req){
     //console.log(req.body);
-    var testRun = new TestRun({
+    /*var testRun = new TestRun({
         children: [{
             name: "Mock suite",
             children: [{
@@ -24,8 +24,8 @@ exports.collect = function(){
                 }]
             }]
         }]
-    });
-    testRun.save(function(err){
+    });*/
+    (new TestRun(req.body)).save(function(err){
         if (err){
             console.log(err);
         }

@@ -10,4 +10,8 @@ var mongoose = require('mongoose'),
         children: [suiteSchema]
     });
 
+testRunSchema.path('children').validate(function(children){
+    return Array.isArray(children) && children.length > 0;
+});
+
 module.exports = testRunSchema;
