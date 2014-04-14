@@ -15,10 +15,6 @@ var validators = {
         }
     };
 
-function validateName(name){
-    return typeof name === 'string' && name.length > 0;
-}
-
 function validate(schema){
     return {
         fields: function(fields){
@@ -37,6 +33,5 @@ function validate(schema){
 }
 
 module.exports = {
-    validate: validate,
-    validateName: validateName
+    validate: validate
 };

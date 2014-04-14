@@ -1,9 +1,8 @@
 'use strict';
 var mongoose = require('mongoose'),
     assertionSchema = require('./assertion'),
-    schemaValidatorUtils = require('../../utils/validators/schemaValidatorUtils'),
-    Schema = mongoose.Schema,
-    testSchema = new Schema({
+    schemaValidator = require('../../utils/validators/schemaValidator'),
+    schema = new mongoose.Schema({
         name: {
             type: String,
             'default': '',
@@ -24,10 +23,9 @@ var mongoose = require('mongoose'),
         children: [assertionSchema]
     });
 
-mongoose.model('TestSchema', testSchema);
+mongoose.model('TestSchema', schema);
 
 // Validation
-testSchema.path('name').validate(schemaValidatorUtils.validateName,
-                                 'Test name cannot be blank');
+schemaValidator.validate(schema).fields(['name', 'children']);
 
-module.exports = testSchema;
+module.exports = schema;

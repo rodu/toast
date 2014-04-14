@@ -1,9 +1,8 @@
 'use strict';
 var mongoose = require('mongoose'),
-    schemaValidatorUtils = require('../../utils/validators/schemaValidatorUtils'),
+    schemaValidator = require('../../utils/validators/schemaValidator'),
     testSchema = require('./test'),
-    Schema = mongoose.Schema,
-    moduleSchema = new Schema({
+    schema = new mongoose.Schema({
         name: {
             type: String,
             'default': '',
@@ -12,10 +11,9 @@ var mongoose = require('mongoose'),
         children: [testSchema]
     });
 
-mongoose.model('ModuleSchema', moduleSchema);
+mongoose.model('ModuleSchema', schema);
 
 // Validation
-moduleSchema.path('name').validate(schemaValidatorUtils.validateName,
-                                      'Module name cannot be blank');
+schemaValidator.validate(schema).fields(['name', 'children']);
 
-module.exports = moduleSchema;
+module.exports = schema;

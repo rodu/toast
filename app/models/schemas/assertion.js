@@ -1,6 +1,6 @@
 'use strict';
 var mongoose = require('mongoose'),
-    schemaValidatorUtils = require('../../utils/validators/schemaValidatorUtils'),
+    schemaValidator = require('../../utils/validators/schemaValidator'),
     schema = new mongoose.Schema({
         result: {
             type: Boolean,
@@ -32,6 +32,6 @@ var mongoose = require('mongoose'),
 mongoose.model('AssertionSchema', schema);
 
 // Validation
-schemaValidatorUtils.validate(schema).fields(['name']);
+schemaValidator.validate(schema).fields(['name']);
 
 module.exports = schema;

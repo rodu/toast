@@ -1,8 +1,8 @@
 'use strict';
 var mongoose = require('mongoose'),
     suiteSchema = require('./suite'),
-    Schema = mongoose.Schema,
-    testRunSchema = new Schema({
+    schemaValidator = require('../../utils/validators/schemaValidator'),
+    schema = new mongoose.Schema({
         creationDate: {
             type: Date,
             'default': Date.now
@@ -10,8 +10,6 @@ var mongoose = require('mongoose'),
         children: [suiteSchema]
     });
 
-testRunSchema.path('children').validate(function(children){
-    return Array.isArray(children) && children.length > 0;
-});
+schemaValidator.validate(schema).fields(['children']);
 
-module.exports = testRunSchema;
+module.exports = schema;

@@ -1,9 +1,8 @@
 'use strict';
 var mongoose = require('mongoose'),
-    schemaValidatorUtils = require('../../utils/validators/schemaValidatorUtils'),
+    schemaValidator = require('../../utils/validators/schemaValidator'),
     moduleSchema = require('./module'),
-    Schema = mongoose.Schema,
-    suiteSchema = new Schema({
+    schema = new mongoose.Schema({
         // The suite name should identify the project by name
         name: {
             type: String,
@@ -25,10 +24,9 @@ var mongoose = require('mongoose'),
         children: [moduleSchema]
     });
 
-mongoose.model('SuiteSchema', suiteSchema);
+mongoose.model('SuiteSchema', schema);
 
 // Validation
-suiteSchema.path('name').validate(schemaValidatorUtils.validateName,
-                                  'Suite name cannot be blank');
+schemaValidator.validate(schema).fields(['name', 'children']);
 
-module.exports = suiteSchema;
+module.exports = schema;
