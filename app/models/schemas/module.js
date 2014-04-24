@@ -8,6 +8,18 @@ var mongoose = require('mongoose'),
             'default': '',
             trim: true
         },
+        failed: {
+            type: Number,
+            'default': 0
+        },
+        passed: {
+            type: Number,
+            'default': 0
+        },
+        total: {
+            type: Number,
+            'default': 0
+        },
         children: [testSchema]
     });
 

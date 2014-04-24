@@ -17,7 +17,11 @@ var mongoose = require('mongoose'),
             type: Number,
             'default': 0
         },
-        duration: {
+        total: {
+            type: Number,
+            'default': 0
+        },
+        runtime: {
             type: Number,
             'default': 0
         },

@@ -26,6 +26,11 @@ var mongoose = require('mongoose'),
             type: String,
             'default': '',
             trim: true
+        },
+        module: {
+            type: String,
+            'default': '',
+            trim: true
         }
     });
 
