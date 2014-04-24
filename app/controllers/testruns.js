@@ -9,7 +9,7 @@ exports.render = function(req, res) {
     });
 };
 
-exports.collect = function(req){
+exports.post = function(req, res){
     //console.log(req.body);
     /*var testRun = new TestRun({
         children: [{
@@ -25,9 +25,20 @@ exports.collect = function(req){
             }]
         }]
     });*/
+    console.log(req.body);
     (new TestRun(req.body)).save(function(err){
         if (err){
-            console.log(err);
+            res.send(err);
         }
+        res.json({messge:'OK'});
+    });
+};
+
+exports.getAll = function(req, res){
+    TestRun.find(function(err, testruns){
+        if (err){
+            res.send(err);
+        }
+        res.json(testruns);
     });
 };
