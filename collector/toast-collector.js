@@ -18,15 +18,17 @@
         moduleResults = [],
         suiteResults = [],
         testruns = {},
-        iframe,
         addCORSIframe = function(){
-            iframe = document.createElement("iframe");
+            var iframe = document.createElement("iframe");
             iframe.setAttribute("src", TOAST_URL + "/iframe");
+            iframe.setAttribute("id", "messenger");
             document.body.appendChild(iframe);
         },
         postResults = function(){
-            iframe.contentWindow.postMessage(JSON.stringify(testruns), TOAST_URL);
+            var iframe = document.getElementById("messenger");
+            iframe.contentWindow.postMessage(testruns, TOAST_URL);
         };
+
     // Detects QUnit
     if (typeof window.QUnit !== "undefined"){
         
@@ -55,9 +57,9 @@
         // Registers callback for suite results
         QUnit.done(function(details){
             details.children = moduleResults.slice();
-            details.name = "SuiteName";
             suiteResults.push(details);
 
+            testruns.name = "Diplodoc";
             testruns.children = suiteResults.slice();
             moduleResults = [];
             suiteResults = [];

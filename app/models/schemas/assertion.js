@@ -6,22 +6,22 @@ var mongoose = require('mongoose'),
             type: Boolean,
             'default': false
         },
-        expected: {
+        /*expected: {
             type: Object
         },
         actual: {
             type: Object
-        },
+        },*/
         name: {
             type: String,
             'default': '',
             trim: true
         },
-        source: { // the error stacktrace if any
+        /*source: { // the error stacktrace if any
             type: String,
             'default': '',
             trim: true
-        },
+        },*/
         message: {
             type: String,
             'default': '',

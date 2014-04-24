@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
         // The suite name should identify the project by name
         name: {
             type: String,
-            'default': '',
+            'default': 'Suite',
             trim: true
         },
         failed: {
@@ -31,6 +31,6 @@ var mongoose = require('mongoose'),
 mongoose.model('SuiteSchema', schema);
 
 // Validation
-schemaValidator.validate(schema).fields(['name', 'children']);
+schemaValidator.validate(schema).fields(['children']);
 
 module.exports = schema;

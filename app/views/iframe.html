@@ -9,20 +9,20 @@
         <div id="post-result"></div>
         <script>
             $(function(){
+                var $postResults = $("#post-result");
                 window.addEventListener("message", function(event){
-                    //document.write(event.data);
-                    var $postResults = $("#post-result");
+                    $postResults.text("Got message from " + event.origin);
                     $.ajax({
                         type: "POST",
                         url: "/api/testruns",
-                        data: event.data,
+                        data: JSON.stringify(event.data),
                         dataType: "json"
                     
                     }).done(function(data){
                         $postResults.text(data.message);
                     
-                    }).fail(function(a, b, c){
-                        $postResults.text(a + b + c);
+                    }).fail(function(jqXHR, textStatus){
+                        $postResults.text(jqXHR.status + "," + textStatus);
                     });
                 }, false);
             });
