@@ -15,12 +15,12 @@
                     $.ajax({
                         type: "POST",
                         url: "/api/testruns",
-                        data: JSON.stringify(event.data),
+                        data: event.data,
                         dataType: "json"
                     
                     }).done(function(data){
                         $postResults.text(data.message);
-                    
+
                     }).fail(function(jqXHR, textStatus){
                         $postResults.text(jqXHR.status + "," + textStatus);
                     });

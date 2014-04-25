@@ -17,14 +17,13 @@
         testResults = [],
         moduleResults = [],
         suiteResults = [],
-        testruns = {},
         addCORSIframe = function(){
             var iframe = document.createElement("iframe");
             iframe.setAttribute("src", TOAST_URL + "/iframe");
             iframe.setAttribute("id", "messenger");
             document.body.appendChild(iframe);
         },
-        postResults = function(){
+        postResults = function(testruns){
             var iframe = document.getElementById("messenger");
             iframe.contentWindow.postMessage(testruns, TOAST_URL);
         };
@@ -56,6 +55,8 @@
 
         // Registers callback for suite results
         QUnit.done(function(details){
+            var testruns = {};
+            
             details.children = moduleResults.slice();
             suiteResults.push(details);
 
@@ -64,7 +65,7 @@
             moduleResults = [];
             suiteResults = [];
 
-            postResults();
+            postResults(testruns);
         });
     }
 

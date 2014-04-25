@@ -27,10 +27,12 @@ exports.post = function(req, res){
     });*/
     console.log(req.body);
     (new TestRun(req.body)).save(function(err){
+        console.log('saved!');
         if (err){
             res.send(err);
         }
-        res.json({messge:'OK'});
+        console.log('Returning response...');
+        res.json({"message":"OK"});
     });
 };
 
