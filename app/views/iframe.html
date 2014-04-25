@@ -9,12 +9,20 @@
         <div id="post-result"></div>
         <script>
             $(function(){
-                var $postResults = $("#post-result"),
+                var 
+                    // Reads the origin parameter from the iframe generated
+                    parentOrigin = "{{origin}}";
+                    $postResults = $("#post-result"),
                     onEvent = window.addEventListener || window.attachEvent ||  function(){
                             console.error("Not support for standard event listeners... Come on...");
-                        };
+                        },
+                    iframOrigin = window.location.protocol + "//" + window.location.host;
                 onEvent("message", function(event){
                     var data = event.data;
+                    if (parentOrigin !== event.origin){
+                        console.error("Origin not allowed", event.origin);
+                        return;
+                    }
                     console.log("Got message from ", event.origin);
                     //window.parent.postMessage("test message", event.origin);
                     $.ajax({
@@ -25,13 +33,14 @@
                     
                     }).done(function(data){
                         window.parent.postMessage({
+                            origin: iframOrigin,
                             success: true,
                             message: data.message
                         }, event.origin);
 
                     }).fail(function(jqXHR, textStatus){
                         window.parent.postMessage({
-                            success: false,
+                            origin: iframOrigin,
                             message: textStatus
                         }, event.origin);
                     

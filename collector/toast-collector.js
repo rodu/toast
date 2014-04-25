@@ -26,12 +26,18 @@
     if (typeof window.QUnit !== "undefined"){
         // Adds iframe to enable CORS requests
         corsIframe = document.createElement("iframe");
-        corsIframe.setAttribute("src", TOAST_SERVER_URL + "/iframe");
+        corsIframe.setAttribute("src",
+            TOAST_SERVER_URL + "/iframe?origin=" +
+                encodeURI(window.location.protocol + "//" + window.location.host));
         corsIframe.setAttribute("style", "display:none;");
         document.body.appendChild(corsIframe);
 
         // Registers event listener to handle messages from the iframe
         onEvent("message", function(event){
+            if (event.data.origin !== TOAST_SERVER_URL){
+                console.error("Origin not allowed", event.origin);
+                return;
+            }
             if (event.data.success){
                 console.log("Test results were collected:",
                             event.data.message);

@@ -7,5 +7,7 @@ exports.render = function(req, res) {
 };
 
 exports.iframe = function(req, res){
-    res.render('iframe');
+    res.render('iframe', {
+        origin: decodeURI(req.query.origin)
+    });
 };
