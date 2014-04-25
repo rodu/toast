@@ -9,22 +9,34 @@
         <div id="post-result"></div>
         <script>
             $(function(){
-                var $postResults = $("#post-result");
-                window.addEventListener("message", function(event){
-                    $postResults.text("Got message from " + event.origin);
+                var $postResults = $("#post-result"),
+                    onEvent = window.addEventListener || window.attachEvent ||  function(){
+                            console.error("Not support for standard event listeners... Come on...");
+                        };
+                onEvent("message", function(event){
+                    var data = event.data;
+                    console.log("Got message from ", event.origin);
+                    //window.parent.postMessage("test message", event.origin);
                     $.ajax({
                         type: "POST",
                         url: "/api/testruns",
-                        data: event.data,
+                        data: data.testruns,
                         dataType: "json"
                     
                     }).done(function(data){
-                        $postResults.text(data.message);
+                        window.parent.postMessage({
+                            success: true,
+                            message: data.message
+                        }, event.origin);
 
                     }).fail(function(jqXHR, textStatus){
-                        $postResults.text(jqXHR.status + "," + textStatus);
+                        window.parent.postMessage({
+                            success: false,
+                            message: textStatus
+                        }, event.origin);
+                    
                     });
-                }, false);
+                });
             });
         </script>
     </body>

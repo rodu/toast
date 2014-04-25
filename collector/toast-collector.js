@@ -12,26 +12,36 @@
 (function(window){
     "use strict";
     var
-        TOAST_URL = "http://localhost:3000",
+        TOAST_SERVER_URL = "http://localhost:3000",
+        corsIframe,
+        // Cross-browser event attaching
+        onEvent = window.addEventListener || window.attachEvent ||  function(){
+                console.error("Not support for standard event listeners... Come on...");
+            },
         assertionResults = [],
         testResults = [],
         moduleResults = [],
-        suiteResults = [],
-        addCORSIframe = function(){
-            var iframe = document.createElement("iframe");
-            iframe.setAttribute("src", TOAST_URL + "/iframe");
-            iframe.setAttribute("id", "messenger");
-            document.body.appendChild(iframe);
-        },
-        postResults = function(testruns){
-            var iframe = document.getElementById("messenger");
-            iframe.contentWindow.postMessage(testruns, TOAST_URL);
-        };
-
+        suiteResults = [];
     // Detects QUnit
     if (typeof window.QUnit !== "undefined"){
-        
-        addCORSIframe();
+        // Adds iframe to enable CORS requests
+        corsIframe = document.createElement("iframe");
+        corsIframe.setAttribute("src", TOAST_SERVER_URL + "/iframe");
+        corsIframe.setAttribute("style", "display:none;");
+        document.body.appendChild(corsIframe);
+
+        // Registers event listener to handle messages from the iframe
+        onEvent("message", function(event){
+            if (event.data.success){
+                console.log("Test results were collected:",
+                            event.data.message);
+            }
+            else {
+                console.log("Test data collection failed:",
+                            event.data.message);   
+            }
+        });
+
         // Register callback for assertion results
         QUnit.log(function(details){
             assertionResults.push(details);
@@ -64,8 +74,10 @@
             testruns.children = suiteResults.slice();
             moduleResults = [];
             suiteResults = [];
-
-            postResults(testruns);
+            // Sends results to iframe for the CORS post request
+            corsIframe.contentWindow.postMessage({
+                    testruns: testruns
+                }, TOAST_SERVER_URL);
         });
     }
 
