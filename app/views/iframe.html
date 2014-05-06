@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>Diplodoc Test Results Collection IFrame</title>
         <script src="/lib/jquery/dist/jquery.min.js"></script>
+        <script src="/lib/platform/platform.js"></script>
     </head>
     <body>
         <div id="post-result"></div>
@@ -24,7 +25,18 @@
                         return;
                     }
                     console.log("Got message from ", event.origin);
-                    //window.parent.postMessage("test message", event.origin);
+                    
+                    // Adds client info gathered by the platform.js library,
+                    // as expected by the DB schema to be saved
+                    data.testruns.clientInfo = {
+                        userAgent: platform.ua,
+                        browserName: platform.name,
+                        browserVersion: platform.version,
+                        osArch: platform.os.architecture,
+                        osFamily: platform.os.family,
+                        osVersion: platform.os.version
+                    };
+
                     $.ajax({
                         type: "POST",
                         url: "/api/testruns",
@@ -46,6 +58,8 @@
                     
                     });
                 });
+
+                console.log(platform);
             });
         </script>
     </body>
