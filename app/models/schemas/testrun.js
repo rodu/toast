@@ -31,7 +31,12 @@ var mongoose = require('mongoose'),
             },
             osFamily: {
                 type: String,
-                'default': 'ProjectName',
+                'default': '',
+                trim: true
+            },
+            osVersion: {
+                type: String,
+                'default': '',
                 trim: true
             }
         },
