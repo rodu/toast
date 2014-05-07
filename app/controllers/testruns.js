@@ -27,7 +27,6 @@ exports.post = function(req, res){
             }]
         }]
     });*/
-    console.log(req.body);
     var
         userAgent = req.body.clientInfo.userAgent,
         clientSha = crypto.createHash('sha256').update(userAgent).digest('base64');
