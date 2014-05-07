@@ -34,7 +34,14 @@ controller('TestrunsController',
                 arc,
 
                 initializeSunburst = function(){
-                     color = d3.scale.category20c();
+                     //color = d3.scale.category20c();
+                     color = function color(r){
+                        if (r >= 0 && r < 1){
+                            console.log(r);
+                            return d3.rgb(220, 220 * r, 75);
+                        }
+                        return d3.rgb(75, 220, 75);
+                     };
 
                      vis = d3.select("#sunburst").append("svg:svg")
                         .attr("width", w)
@@ -58,8 +65,9 @@ controller('TestrunsController',
                     //console.log(sunburstDS);
                     //resetChart();
                     var path = vis.data([{
-                        name: 'flare',
-                        children: $scope.testruns[10].children}]).selectAll("path")
+                            name: 'flare',
+                            children: $scope.testruns[$scope.testruns.length - 1].children
+                        }]).selectAll("path")
                     .data(partition.nodes)
                     .enter().append("svg:path")
                     .attr("display", function(d) { return d.depth ? null : "none"; }) // hide inner ring
@@ -68,15 +76,15 @@ controller('TestrunsController',
                         var i, itemText,
                             depthRead = d.depth,
                             currentD = d,
-                            labels = ["Genre", "Artist", "Album", "Title"];
+                            labels = ["Suite", "Module", "Test", "Assertion"];
 
                         // Reset all higher levels first
-                        for (i = depthRead; i <= 4; i++){
+                        /*for (i = depthRead; i <= 4; i++){
                             d3.select("#detail" + i).text("");
-                        }
+                        }*/
 
                         while (depthRead > 0){
-                            itemText = "<strong>" + labels[depthRead - 1] + ":</strong> " + currentD.name;
+                            itemText = "<strong>" + labels[depthRead - 1] + ":</strong> " + currentD.name + currentD.result;
                             d3.select("#detail" + depthRead).html(itemText);
 
                             currentD = currentD.parent;
@@ -87,7 +95,10 @@ controller('TestrunsController',
                     })
                     .attr("fill-rule", "evenodd")
                     .style("stroke", "#fff")
-                    .style("fill", function(d) { return color((d.children ? d : d.parent).name); });
+                    .style("fill", function(d){
+                        return color(typeof d.result !== "undefined" ?
+                            +d.result : d.passed / d.total);
+                    });
                 },
 
                 // Interpolate the arcs in data space.
