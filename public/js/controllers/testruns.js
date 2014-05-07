@@ -37,10 +37,9 @@ controller('TestrunsController',
                      //color = d3.scale.category20c();
                      color = function color(r){
                         if (r >= 0 && r < 1){
-                            console.log(r);
-                            return d3.rgb(220, 220 * r, 75);
+                            return d3.rgb(200 + (200 * r), 200 * r, 75);
                         }
-                        return d3.rgb(75, 220, 75);
+                        return d3.rgb(75, 200, 75);
                      };
 
                      vis = d3.select("#sunburst").append("svg:svg")
