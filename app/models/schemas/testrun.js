@@ -3,6 +3,10 @@ var mongoose = require('mongoose'),
     suiteSchema = require('./suite'),
     schemaValidator = require('../../utils/validators/schemaValidator'),
     schema = new mongoose.Schema({
+        clientSha: {
+            type: String,
+            trum: true
+        },
         name: {
             type: String,
             'default': 'ProjectName',

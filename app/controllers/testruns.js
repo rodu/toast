@@ -1,6 +1,8 @@
 'use strict';
 
-var mongoose = require('mongoose'),
+var
+    crypto = require('crypto'),
+    mongoose = require('mongoose'),
     TestRun = mongoose.model('TestRun');
 
 exports.render = function(req, res) {
@@ -26,6 +28,11 @@ exports.post = function(req, res){
         }]
     });*/
     console.log(req.body);
+    var
+        userAgent = req.body.clientInfo.userAgent,
+        clientSha = crypto.createHash('sha256').update(userAgent).digest('base64');
+    // Adds the hash to the request body before saving to DB
+    req.body.clientSha = clientSha;
     (new TestRun(req.body)).save(function(err){
         if (err){
             res.send(err);
