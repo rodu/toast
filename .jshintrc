@@ -22,7 +22,7 @@
     "funcscope": false,
     "strict": true,
     "trailing": false,
-    "indent": 4,
+    //"indent": 4,
     "noempty": true,
     "predef": [ // Extra globals.
         "define",

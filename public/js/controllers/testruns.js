@@ -35,14 +35,14 @@ controller('TestrunsController',
 
                 initializeSunburst = function(){
                      //color = d3.scale.category20c();
-                     color = function color(r){
+                    color = function color(r){
                         if (r >= 0 && r < 1){
                             return d3.rgb(200 + (200 * r), 200 * r, 75);
                         }
                         return d3.rgb(75, 200, 75);
-                     };
+                    };
 
-                     vis = d3.select("#sunburst").append("svg:svg")
+                    vis = d3.select("#sunburst").append("svg:svg")
                         .attr("width", w)
                         .attr("height", h)
                         .append("svg:g")
@@ -51,7 +51,7 @@ controller('TestrunsController',
                     partition = d3.layout.partition()
                         .sort(null)
                         .size([2 * Math.PI, r * r])
-                        .value(function(d) { return 1; });
+                        .value(function() { return 1; });
 
                     arc = d3.svg.arc()
                         .startAngle(function(d) { return d.x; })
@@ -72,7 +72,7 @@ controller('TestrunsController',
                     .attr("display", function(d) { return d.depth ? null : "none"; }) // hide inner ring
                     .attr("d", arc)
                     .on("mouseover", function(d) {
-                        var i, itemText,
+                        var itemText,
                             depthRead = d.depth,
                             currentD = d,
                             labels = ["Suite", "Module", "Test", "Assertion"];
@@ -95,13 +95,13 @@ controller('TestrunsController',
                     .attr("fill-rule", "evenodd")
                     .style("stroke", "#fff")
                     .style("fill", function(d){
-                        return color(typeof d.result !== "undefined" ?
-                            +d.result : d.passed / d.total);
-                    });
+                            return color(typeof d.result !== "undefined" ?
+                                +d.result : d.passed / d.total);
+                        });
                 },
 
                 // Interpolate the arcs in data space.
-                arcTween = function (a) {
+                /*arcTween = function (a) {
                     var i = d3.interpolate({x: a.x0, dx: a.dx0}, a);
                     return function(t) {
                         var b = i(t);
@@ -109,7 +109,7 @@ controller('TestrunsController',
                         a.dx0 = b.dx;
                         return arc(b);
                     };
-                },
+                },*/
 
                 buildDataSet = function buildDataSet(){
                     // body
