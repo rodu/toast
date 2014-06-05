@@ -12,6 +12,11 @@ var mongoose = require('mongoose'),
             'default': 'ProjectName',
             trim: true
         },
+        host: { // Represents the host which served the tests being recorded
+            type: String,
+            'default': '',
+            trim: true
+        },
         clientInfo: {
             userAgent: {
                 type: String,

@@ -63,7 +63,7 @@ controller('TestrunsController',
                 renderSunsurst = function () {
                     //console.log(sunburstDS);
                     //resetChart();
-                    var path = vis.data([{
+                    vis.data([{
                             name: 'flare',
                             children: $scope.testruns[$scope.testruns.length - 1].children
                         }]).selectAll("path")
@@ -98,7 +98,7 @@ controller('TestrunsController',
                             return color(typeof d.result !== "undefined" ?
                                 +d.result : d.passed / d.total);
                         });
-                },
+                };
 
                 // Interpolate the arcs in data space.
                 /*arcTween = function (a) {
@@ -109,12 +109,12 @@ controller('TestrunsController',
                         a.dx0 = b.dx;
                         return arc(b);
                     };
-                },*/
+                },
 
                 buildDataSet = function buildDataSet(){
                     // body
                 };            
-        
+                */
             $scope.showProjects = function showProjects(){
                 var populateView = function populateView(){
                         initializeSunburst();

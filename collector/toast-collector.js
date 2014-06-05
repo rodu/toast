@@ -9,10 +9,26 @@
  * a single request to the toast server.
  *
  */
-(function(window){
+(function toastCollector(window){
     "use strict";
     var
-        TOAST_SERVER_URL = "http://localhost:3000",
+        // Retrieves the Toast server url which should be specified in a
+        // data attribute of the toast-collector script
+        TOAST_SERVER_URL = (function readToastServerUrl(){
+            var scripts = document.getElementsByTagName("script"),
+                toastServer;
+            Array.prototype.forEach.call(scripts, function forEachFn(script){
+                toastServer = script.getAttribute("data-toast-server");
+                if (toastServer){
+                    return false; // break equivalent
+                }
+            });
+            return toastServer || (function errorFn(){
+                throw new Error("Please specify a value for data-server-url " +
+                    "on the toast collector script, indicating the toast " +
+                    "server root url for reporting.");
+            }).call();
+        }()),
         corsIframe,
         // Cross-browser event attaching
         onEvent = window.addEventListener || window.attachEvent ||  function(){
@@ -71,13 +87,17 @@
 
         // Registers callback for suite results
         QUnit.done(function(details){
-            var testruns = {};
+            var testruns;
             
             details.children = moduleResults.slice();
             suiteResults.push(details);
 
-            testruns.name = "Diplodoc";
-            testruns.children = suiteResults.slice();
+            testruns = {
+                name: "Diplodoc",
+                host: window.location.host,
+                children: suiteResults.slice()
+            };
+
             moduleResults = [];
             suiteResults = [];
             // Sends results to iframe for the CORS post request
